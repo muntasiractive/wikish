@@ -1,2 +1,29 @@
-./venv
-/venv
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual Environments
+.env
+.venv
+venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+
+# Local data/samples
+samples/
+examples/
+data/
+wiki_search/
+
+# OS files
+.DS_Store
+Thumbs.db
