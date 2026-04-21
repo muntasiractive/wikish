@@ -27,3 +27,6 @@ wiki_search/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Ignore draft files
+drafts/
