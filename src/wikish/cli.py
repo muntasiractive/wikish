@@ -2,6 +2,14 @@ import asyncio
 import typer
 import mdv
 import sys
+import io
+
+# Ensure UTF-8 output for Windows terminals to support ASCII block characters and emojis
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+if sys.stderr.encoding and sys.stderr.encoding.lower() != 'utf-8':
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 from rich.console import Console, Group
 from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
@@ -167,11 +175,15 @@ async def search_loop(query: str):
                 if not Confirm.ask("Go back to search results?"):
                     break
 
-@app.command()
-def run(
+@app.callback(invoke_without_command=True)
+def main(
+    ctx: typer.Context,
     query: str = typer.Argument(None, help="Search term (optional, will prompt if missing)"),
 ):
     """🚀 Search and read Wikipedia articles with a beautiful CLI interface."""
+    if ctx.invoked_subcommand is not None:
+        return
+        
     if not query:
         show_splash()
         query = Prompt.ask("[bold cyan]What would you like to learn about?[/bold cyan]")
